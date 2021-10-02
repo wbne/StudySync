@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment } from './slices/counterSlice'
 import Button from '@material-ui/core/Button';
+import Auth from './Auth'
 import Toolbar from "@material-ui/core/Toolbar";
 import NavBar from "./NavBar";
 
@@ -16,10 +17,11 @@ const Onboarding = () => {
 	const dispatch = useDispatch()
 	return(
 		<>
+			<Auth />
 			<NavBar />
 
 			<Button variant="outlined">Log in with Google</Button>
-			<Button 
+			<Button
 				variant="outlined"
 				onClick={() => dispatch(increment())}
 			>

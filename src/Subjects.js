@@ -7,6 +7,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import NavBar from "./NavBar";
+
 //Hardcoded subjects which will make presentation and demonstration easier and cleaner
 const SUBJECTS = ["math", "sci", "hist"]
 
@@ -46,6 +51,7 @@ export default function Subjects() {
 
   return (
     <>
+        <NavBar />
       <p>Please select the study subjects</p>
       <FormGroup column="true">
   	      {subjBoxes()}

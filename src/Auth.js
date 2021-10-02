@@ -60,7 +60,7 @@ export default function Auth() {
 	return (<Button 
 			variant="outlined"
 			onClick={() => signIn(dispatch)}>
-			CLICK ME
+			Sign in with Google
 		</Button>)
 
 }

@@ -17,10 +17,8 @@ const Onboarding = () => {
 	const dispatch = useDispatch()
 	return(
 		<>
-			<Auth />
 			<NavBar />
-
-			<Button variant="outlined">Log in with Google</Button>
+			<Auth />
 			<Button
 				variant="outlined"
 				onClick={() => dispatch(increment())}

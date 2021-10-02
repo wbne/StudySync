@@ -8,7 +8,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 
 //Hardcoded subjects which will make presentation and demonstration easier and cleaner
-const SUBJECTS = ["math", "sci", "hist"]
+const SUBJECTS = ["math", "sci", "hist", "eng", "lunch"]
 
 /*
  * Presents a list of subjects and asks the user to select the topics they would like to study for.
@@ -31,6 +31,7 @@ export default function Subjects() {
   const subjBoxes = () => {
 	var list = []
 	SUBJECTS.forEach((value) => list.push(<FormControlLabel 
+		key={value+value}
 		control={
 			<Checkbox
 				checked={checked.value}

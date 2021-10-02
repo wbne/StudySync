@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { decrement, increment } from './slices/counterSlice'
 import Button from '@material-ui/core/Button';
+import Auth from './Auth'
 
 /*
  * Component that allows users to either sync their google account or continue as a guest.
@@ -14,7 +15,7 @@ const Onboarding = () => {
 	const dispatch = useDispatch()
 	return(
 		<>
-			<Button variant="outlined">Log in with Google</Button>
+			<Auth />
 			<Button 
 				variant="outlined"
 				onClick={() => dispatch(increment())}

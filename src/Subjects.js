@@ -7,6 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import img2 from './image/broll2.png'
 
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -160,6 +161,9 @@ export default function Subjects() {
 		      Next
 	      </Button>
 	    </div>
+		<div style={pain}>
+			<img src={img2} style={{objectFit: 'cover', width:'100%', }} />
+		</div>
 	</div>
     </>
   );

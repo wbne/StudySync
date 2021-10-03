@@ -20,6 +20,11 @@ export default function JitsiPage() {
   const userData = useSelector((state) => state.user.value)
   const id = useSelector((state) => state.user.id)
   const funZone = userData[Object.keys(userData)[0]][Math.floor(Math.random() * userData[Object.keys(userData)[0]].length)]
+  if(!call) {
+	setRoom("hackdfw2021" + funZone)
+	setName(NICKNAMES[Math.floor(Math.random() * NICKNAMES.length)])
+	setCall(true)
+  }
   var roomID
 
   /*
@@ -32,10 +37,11 @@ export default function JitsiPage() {
     if (room && name) setCall(true)
   }
 
-	const back = new XMLHttpRequest();
-                back.open( "GET", BACKEND_URL + "subject/" + funZone + "/1", true);
+	const back = () => { new XMLHttpRequest();
+                back.open( "GET", BACKEND_URL + "subject/" + funZone, true);
                 back.onload = function() {
-                        const response = this.response
+                        const response = JSON.parse(this.response)
+			//console.log(response)
                         if(back.request < 200 || back.request >= 400) {
                                 console.log("ohno")
                                 return
@@ -46,6 +52,7 @@ export default function JitsiPage() {
 				anger.open("GET", BACKEND_URL + "room/" + roomID, true);
 				anger.onload = function() {
 					const peko = JSON.parse(this.response)
+					console.log(peko)
 					setRoom(peko["name"])
 					setName(NICKNAMES[Math.floor(Math.random() * NICKNAMES.length)])
 					setCall(true)
@@ -54,6 +61,7 @@ export default function JitsiPage() {
 			}
                 }
 	back.send()
+	}
 	
 
   return(call ? (

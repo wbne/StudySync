@@ -77,6 +77,7 @@ function signIn(dispatch) {
 export default function Auth() {
 	const dispatch = useDispatch()
 	return (<Button 
+			style={{margin:'10px', marginTop:'15vh',}}
 			variant="outlined"
 			onClick={() => signIn(dispatch)}>
 			Sign in with Google

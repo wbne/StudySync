@@ -15,6 +15,20 @@ import NavBar from "./NavBar";
 
 //Hardcoded subjects which will make presentation and demonstration easier and cleaner
 const SUBJECTS = ["math", "sci", "hist", "eng", "lunch"]
+const BACKEND_URL = "http://hackdfwbackend-env.eba-5mcqjniz.us-east-2.elasticbeanstalk.com/user/"
+
+/*
+ * Generates a random 40 character string
+ * Returns a string which is the random ID
+ */
+function makeID() {
+   var result = '';
+   var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+   for ( var i = 0; i < 40; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 52));
+   }
+   return result;
+}
 
 /*
  * Checks if the user has selected at least one subject
@@ -25,16 +39,33 @@ function checkLength(dispatch, subj, id) {
 	var count = 0
 	var data = {}
 	var subjArray = []
+	var subjString = "" 
 	for(var i = 0; i < temp.length; i++) {
 		if(subj[temp[i]]){
 			count++
 			subjArray.push(temp[i])
+			subjString += temp[i] + ","
 		}
+	}
+	if(subjString.length > 0) {
+		subjString = subjString.substring(0, subjString.length - 1)
 	}
 	if(count > 0) {
 		dispatch(increment())
 		dispatch(setUser({[id]: subjArray}))
-		return
+
+		const back = new XMLHttpRequest();
+                back.open( "GET", BACKEND_URL + id + "/" + subjString, true); // false for synchronous request
+                back.onload = function() {
+                        const response = this.response
+                        if(back.request < 200 || back.request >= 400) {
+                                console.log("ohno")
+                                return
+                        }
+			//code goes here
+			console.log(response)
+                }
+                back.send();
 	}
 	return
 }
@@ -53,7 +84,7 @@ export default function Subjects() {
   const dispatch = useDispatch()
  
   if(id.length == 0) {
-	id = "TEMP"
+	id = makeID()
   }
 
   const handleChange = (event) => {

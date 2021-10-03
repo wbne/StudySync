@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useDispatch } from 'react-redux'
 import { increment, incrementByAmount } from './slices/counterSlice'
-import { setUserId } from './slices/userSlice'
+import { setUser, setUserId } from './slices/userSlice'
 import Button from '@material-ui/core/Button';
 
 //firebase data. do i need to move this?
@@ -21,6 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = (new GoogleAuthProvider());
+const BACKEND_URL = "http://hackdfwbackend-env.eba-5mcqjniz.us-east-2.elasticbeanstalk.com/user/"
 //This prevents rerendering of the sign in window
 var clicked = false
 
@@ -40,11 +41,26 @@ function signIn(dispatch) {
    		const token = credential.accessToken;
     		const user = result.user;
 		console.log(user.email)
-		//TODO: Check to see if the backend has the user data and if it does not, then go to the subject page
-		//	Else skip straight to the jitsi page.
-		dispatch(increment())
 		dispatch(setUserId(user.email))
-		//dispatch(incrementByAmount(2))
+		const back = new XMLHttpRequest();
+    		back.open( "GET", BACKEND_URL + user.email, true); // false for synchronous request
+		back.onload = function() {
+			const response = JSON.parse(this.response)
+			if(back.request < 200 || back.request >= 400) {
+				console.log("ohno")
+				dispatch(increment())
+				return
+			}
+			console.log(response)
+			if(response.length == 0) {
+				dispatch(increment())
+			}
+			else {
+				dispatch(setUser({[user.mail]: response}))
+				dispatch(incrementByAmount(2))
+			}
+		}
+    		back.send();
     	}).catch((error) => {
    		const errorCode = error.code;
    		const errorMessage = error.message;

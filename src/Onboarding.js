@@ -15,15 +15,43 @@ import NavBar from "./NavBar";
  */
 const Onboarding = () => {
 	const dispatch = useDispatch()
+	const column = {
+		display: 'flex',
+  		flexDirection: 'column',
+  		flexBasis: '100%',
+  		flex: '1',
+	}
+	const card = {
+		width: '50%',
+		marginLeft: '25%',
+		minHeight: '50vh',
+		marginTop: '10%',
+		outline: '1px solid #5B94FF',
+		padding: '20px',
+	}
+	const but = {
+		padding: '10px',
+		width: '25vw',
+		margin: '20px',
+	}	
+	const pain = {
+		width: '50%',
+	}
 	return(
 		<>
-			<NavBar />
+		<NavBar />
+		<div style={card}>
+		<div style={pain}>
+		<div style={column}>
 			<Auth />
 			<Button
 				variant="outlined"
 				onClick={() => dispatch(increment())}
 			>
 			Continue as a Guest</Button>
+		</div>
+		</div>
+		</div>
 		</>
 	);
 

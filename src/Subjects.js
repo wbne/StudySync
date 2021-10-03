@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography'
 import NavBar from "./NavBar";
 
 //Hardcoded subjects which will make presentation and demonstration easier and cleaner
-const SUBJECTS = ["math", "sci", "hist", "eng", "lunch"]
+const SUBJECTS = ["Algebra", "Biology", "History", "English", "Chemistry", "Computer Science", "Geometry", "Physics", "Statistics"]
 const BACKEND_URL = "http://hackdfwbackend-env.eba-5mcqjniz.us-east-2.elasticbeanstalk.com/user/"
 
 /*
@@ -40,6 +40,7 @@ function checkLength(dispatch, subj, id) {
 	var data = {}
 	var subjArray = []
 	var subjString = "" 
+
 	for(var i = 0; i < temp.length; i++) {
 		if(subj[temp[i]]){
 			count++
@@ -66,7 +67,9 @@ function checkLength(dispatch, subj, id) {
 			console.log(response)
                 }
                 back.send();
+		return
 	}
+	alert("Please select at least one subject!")
 	return
 }
 
@@ -82,6 +85,28 @@ export default function Subjects() {
   const checked = useSelector((state) => state.subject.value)
   var id = useSelector((state) => state.user.id)
   const dispatch = useDispatch()
+
+	const column = { 
+                display: 'flex',
+                flexDirection: 'column',
+                flexBasis: '100%',
+                flex: '1',
+        }
+        const card = { 
+                width: '50%',
+                marginLeft: '25%',
+                minHeight: '30vh',
+                marginTop: '5%',
+                outline: '1px solid #5B94FF',
+                padding: '20px',
+                overflow: 'hidden',
+        }
+        const pain = {
+                width: '50%',
+                float: 'left',
+                maxHeight: '50vh',
+        }
+
  
   if(id.length == 0) {
 	id = makeID()
@@ -113,24 +138,29 @@ export default function Subjects() {
 
   return (
     <>
-        <NavBar />
-      <p>Please select the study subjects</p>
-      <FormGroup column="true">
-  	      {subjBoxes()}
-      </FormGroup>
-      <Button 
-	      variant="outlined"
-	      onClick={() => dispatch(decrement())}
-      >
-	      Back
-      </Button>
-      <Button 
-	      variant="outlined"
-	      onClick={() => checkLength(dispatch, checked, id)}
-      >
-	      Next
-      </Button>
-      
+	<div style={card}>
+      	  <NavBar />
+	    <div style={pain}>
+  	    <p>Please select the study subjects</p>
+		<div style={{maxHeight:'35vh',overflow:'scroll',}}>
+  	    <FormGroup column="true">
+  		      {subjBoxes()}
+  	    </FormGroup>
+	    </div>
+  	    <Button 
+		      variant="outlined"
+		      onClick={() => dispatch(decrement())}
+	      >
+		      Back
+	      </Button>
+	      <Button 
+		      variant="outlined"
+		      onClick={() => checkLength(dispatch, checked, id)}
+	      >
+		      Next
+	      </Button>
+	    </div>
+	</div>
     </>
   );
 }

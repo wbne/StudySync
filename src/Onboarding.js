@@ -30,17 +30,17 @@ const Onboarding = () => {
 		outline: '1px solid #5B94FF',
 		padding: '20px',
 		overflow: 'hidden',
+		backgroundColor: 'white',
 	}
 	const pain = {
 		width: '50%',
 		float: 'left',
-		height: '50vh',
+		maxHeight: '50vh',
 	}
 	return(
 		<>
-		<NavBar />
 		<div style={card}>
-			<h1>Study Sync</h1>
+		<NavBar />
 			<div style={pain}>
 				<div style={column}>
 					<Auth />

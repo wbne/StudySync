@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useDispatch } from 'react-redux'
 import { increment, incrementByAmount } from './slices/counterSlice'
+import { setUserId } from './slices/userSlice'
 import Button from '@material-ui/core/Button';
 
 //firebase data. do i need to move this?
@@ -19,7 +20,7 @@ const firebaseConfig = {
 //firebase creation and authentication
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-const provider = new GoogleAuthProvider();
+const provider = (new GoogleAuthProvider());
 //This prevents rerendering of the sign in window
 var clicked = false
 
@@ -38,9 +39,11 @@ function signIn(dispatch) {
     		const credential = GoogleAuthProvider.credentialFromResult(result);
    		const token = credential.accessToken;
     		const user = result.user;
+		console.log(user.email)
 		//TODO: Check to see if the backend has the user data and if it does not, then go to the subject page
 		//	Else skip straight to the jitsi page.
 		dispatch(increment())
+		dispatch(setUserId(user.email))
 		//dispatch(incrementByAmount(2))
     	}).catch((error) => {
    		const errorCode = error.code;
